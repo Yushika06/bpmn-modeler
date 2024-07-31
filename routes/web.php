@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/auth/redirect', [AuthController::class, 'redirect']);
-Route::get('/auth/google/callback',  [AuthController::class, 'callback']);
+Route::get('/auth/{provider}/redirect', [AuthController::class, 'redirect'])->name('socialite.redirect');
+Route::get('/auth/{provider}/callback',  [AuthController::class, 'callback'])->name('socialite.callback');
 
 require __DIR__.'/auth.php';

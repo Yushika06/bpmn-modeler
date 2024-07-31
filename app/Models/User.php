@@ -44,4 +44,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function socialite()
+    {
+        return $this->hasMany(Socialite::class);
+    }
 }
