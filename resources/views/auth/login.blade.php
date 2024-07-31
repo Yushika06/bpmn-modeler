@@ -46,7 +46,7 @@
                  <div class="block mt-4">
                      <label for="remember_me" class="inline-flex items-center">
                          <input id="remember_me" type="checkbox"
-                             class="rounded to-sky-500 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm"
+                             class="rounded to-sky-500 border-gray-300 dark:border-gray-700 text-sky-500 shadow-sm"
                              name="remember">
                          <span class="ms-2 text-sm text-gray-600 dark:text-gray-800">{{ __('Remember me') }}</span>
                      </label>
@@ -54,7 +54,7 @@
 
                  <div class="flex items-center justify-end mt-4">
                      @if (Route::has('password.request'))
-                         <a class="underline text-sm text-gray-600 dark:text-gray-800 hover:text-gray-900 dark:hover:text-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                         <a class="underline text-sm text-gray-600 dark:text-gray-800 hover:text-gray-900 dark:hover:text-sky-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                              href="{{ route('password.request') }}">
                              {{ __('Forgot your password?') }}
                          </a>
@@ -81,7 +81,7 @@
                      <div class="mt-6 grid grid-cols-3 gap-3">
                          <div>
                              <a href="{{ route('socialite.redirect', 'google') }}"
-                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-300 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-sm">
+                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-xl">
                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                      viewBox="0 0 488 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                      <path
@@ -91,7 +91,7 @@
                          </div>
                          <div>
                              <a href="{{ route('socialite.redirect', 'github') }}"
-                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-300 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-sm">
+                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-xl">
                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                      viewBox="0 0 496 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                      <path
@@ -101,7 +101,7 @@
                          </div>
                          <div>
                              <a href="{{ route('socialite.redirect', 'gitlab') }}"
-                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-300 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-sm">
+                                 class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-xl">
                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                      viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                      <path
@@ -126,7 +126,7 @@
 
                      <div class="mt-6">
                          <a href="{{ route('register') }}"
-                             class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-300 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-sm">
+                             class="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gradient-to-r from-cyan-400 to-sky-500 shadow-xl">
                              <h4>Register here </h4>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 512 512">
                                  <path
