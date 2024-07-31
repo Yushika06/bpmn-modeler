@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('socialite', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('user_id');
             $table->string('provider_id');
             $table->string('provider_name');
-            $table->string('provider_token');
+            $table->longText('provider_token')->nullable();
             $table->string('provider_refresh_token')->nullable();
             $table->timestamps();
         });

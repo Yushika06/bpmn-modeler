@@ -49,6 +49,7 @@
         <div>
             <a href="{{ route('socialite.redirect', 'google') }}" class="text-white">Sign in with Google</a>
             <a href="{{ route('socialite.redirect', 'github') }}" class="text-white">Sign in with Github</a>
+            <a href="{{ route('socialite.redirect', 'gitlab') }}" class="text-white">Sign in with Gitlab</a>
         </div>
 
     </form>
