@@ -12,7 +12,7 @@ class CreateModelerTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('bpmn');
-            // $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('project_id')->constrained('projects');
             // $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
         });
     }

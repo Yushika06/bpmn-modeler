@@ -1,24 +1,35 @@
- <!-- Fonts -->
- @vite('resources/css/app.css')
- <link rel="preconnect" href="https://fonts.bunny.net">
- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+<title>Log in to Alurkerja</title>
+<!-- Fonts -->
+@vite('resources/css/app.css')
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
- <!-- Scripts -->
- @vite(['resources/css/app.css', 'resources/js/app.js'])
- <!-- Session Status -->
- <x-auth-session-status :status="session('status')" />
+<!-- Scripts -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<!-- Session Status -->
+<x-auth-session-status :status="session('status')" />
 
- <form method="POST" action="{{ route('login') }}">
-     @csrf
-
-     <!-- Email Address -->
+<form method="POST" action="{{ route('login') }}">
+    @csrf
+    <!-- Login Form -->
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div class="relative py-3 sm:max-w-md sm:mx-auto transform scale-85">
             <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl" style="padding: 10px; margin: 10px;">
-             </div>
-             <div class="relative px-4 py-6 bg-white shadow-lg sm:rounded-3xl sm:p-10">
-                 <div class="mb-6">
-                     <div class="relative flex justify-center text-sm">
+            </div>
+            <div class="relative px-4 py-6 bg-white shadow-lg sm:rounded-3xl sm:p-10">
+                <div class="mb-6">
+                    {{-- back button --}}
+                    <div class="flex justify-between gap-2 mb-6">
+                        <a href="/"
+                            class="inline-flex items-center border border-indigo-300 px-3 py-0.5 rounded-md text-indigo-500 hover:bg-indigo-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18">
+                                </path>
+                            </svg>
+                            <span class="ml-1 font-bold text-lg">Back</span>
+                        </a>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
                          <a href="/">
                              <img src="{{ asset('images/AlurKerja.png') }}" alt="">
                          </a>

@@ -24,7 +24,10 @@ php artisan db:seed --class=CompanySizeTableSeeder
 ```
 
 ```bash
-composer require laravel/ui
+npm install
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init
+npm run dev && npm run build
 ```
 
 ```bash
