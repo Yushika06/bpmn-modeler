@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
 Route::get('/auth/{provider}/callback',  [SocialiteController::class, 'callback'])->name('socialite.callback');
 
-require __DIR__.'/auth.php';
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('register', [AuthController::class, 'create'])->name(name:'register');
+    Route::post('register', [AuthController::class, 'store'])->name(name:'register-post');
+});
+require __DIR__ . '/auth.php';

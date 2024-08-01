@@ -113,3 +113,110 @@
         </div>
     </div>
 </div>
+
+
+<!-- register -->
+
+<form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="form-one form-step">
+                        <div class="br-svg"></div>
+                        <h2>Personal Information</h2>
+                        <p>Enter your personal information correctly</p>
+                        <div>
+                            <label>Your Name</label>
+                            <input id="name" type="text" class="@error('name') border-red-500 @enderror"
+                                name="name" value="{{ old('e.g John Smith') }}" required autocomplete="name"
+                                autofocus>
+                            @error('name')
+                                <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="company">
+                            <label>Which Company are you from?</label>
+                            <div class="grouping">
+                                <input list="companies" @error('company_name')border-red-500 class="@enderror"
+                                    value="{{ old('company_name') }}" required>
+                                <datalist id="companies">
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->name }}"></option>
+                                    @endforeach
+                                </datalist>
+                                @error('company_name')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-two form-step">
+                            <div class="br-svg"></div>
+                            <h2>Contact Information</h2>
+                            <div><label>WhatsApp</label>
+                                <input id="whatsapp_number" name="whatsapp_number" type="text"
+                                    @error('whatsapp_number') class="@enderror" value="{{ old('+62xxxxxxxxxxx') }}">
+                                @error('whatsapp_number')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div><label>Address</label>
+                                <textarea id="address_detail" name="address_detail" @error('address_detail') class="@enderror" required>{{ old('street address') }}</textarea>
+                                @error('address_detail')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div><label>City</label>
+                                <input list="cities" id="city_name" name="city_name"
+                                    @error('city_name') class="@enderror" value="{{ old('city') }}" required>
+                                <datalist id="cities">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->name }}"></option>
+                                    @endforeach
+                                </datalist>
+                                @error('city_name')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div><label>Province</label>
+                                <input list="provinces" id="province_name" name="province_name"
+                                    class=" @error('province_name') border-red-500 @enderror"
+                                    value="{{ old('province') }}" required>
+                                <datalist id="provinces">
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province->name }}"></option>
+                                    @endforeach
+                                </datalist>
+                                @error('province_name')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-three form-step">
+                            <div class="bg-svg"></div>
+                            <h2>Security</h2>
+                            <div>
+                                <label>Email</label>
+                                <input id="email" type="email" class=" @error('email') border-red-500 @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email">
+                                @error('email')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label>Password</label>
+                                <input d="password" type="password" class="@error('password') border-red-500 @enderror"
+                                    name="password" required autocomplete="new-password">
+                                @error('password')
+                                    <p class="mt-2 text-red-600 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <input id="password-confirm" type="password" name="password_confirmation" required
+                                    autocomplete="new-password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev" disable>back</button>
+                        <button type="button" class="btn-prev">Next Step</button>
+                        <button type="button" class="btn-prev">Submit</button>
+                    </div>
+                </form>
