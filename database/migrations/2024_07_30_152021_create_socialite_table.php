@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('provider_name');
             $table->longText('provider_token')->nullable();
             $table->string('provider_refresh_token')->nullable();
+            $table->string('profile_picture')->nullable();
             $table->timestamps();
         });
     }

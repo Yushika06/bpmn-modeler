@@ -15,6 +15,7 @@ class Socialite extends Model
         'provider_id',
         'provider_name',
         'provider_refresh_token',
+        'profile_picture',
     ];
     public function user()
     {
