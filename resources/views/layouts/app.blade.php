@@ -31,9 +31,6 @@
 
             <!-- Main Content -->
             @yield('content')
-            <main>
-                {{ $slot }}
-            </main>
             <!-- End Main Content -->
 
             <!-- FOOTER -->
