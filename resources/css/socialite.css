@@ -1,0 +1,69 @@
+:root {
+    --main-color: #3a9ff1;
+    --secondary-color: #82cddc;
+    --lighter-color: #e0e6e7;
+    --light-color: #808080;
+    --dark-color: #505e5e;
+
+    --font-smaller: 14px;
+    --font-bigger: 20px;
+}
+
+.social-container {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 1.rem;
+}
+
+.text {
+    margin: 0 0.5rem;
+    background-color: transparent;
+    color: #1F2937;
+    font-size: 0.875rem;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.74rem;
+}
+
+.social-btn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 2em;
+    width: 80%;
+    padding: 0.75rem 1.3rem;
+    border: 4px solid #D1D5DB;
+    border-color: var(--lighter-color);
+    border-radius: 30px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-size: 0.875rem;
+    background-color: #F3F4F6;
+    cursor: pointer;
+    -webkit-transition: background-color .3s, color .3s, border-color .3s ease-out;
+    transition: background-color .3s, color .3s, border-color .3s ease-out;
+}
+.social-btn:hover {
+    background-color: var(--main-color);
+    color: var(--dark-color);
+    border-color: var(--secondary-color);
+}
+.social-btn-gitlab:hover {
+    background-color: var(--main-color);
+    color: var(--dark-color);
+    border-color: var(--secondary-color);
+}
+
+.icon {
+    height: 1.25rem;
+    width: 1.25rem;
+}

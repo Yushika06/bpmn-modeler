@@ -10,6 +10,7 @@
     {{-- style --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     @vite('resources/css/register.css')
+    @vite('resources/css/socialite.css')
 
 </head>
 
@@ -36,6 +37,25 @@
                                 <p>Security<br><span>30 secs to complete</span></p>
                             </li>
                         </ul>
+                        <div class="social-container">
+                            <div class="separator">
+                                <div class="text">Or continue with</div>
+                            </div>
+
+                            <div class="buttons-container">
+                                <a href="{{ route('socialite.redirect', 'google') }}" class="social-btn">
+                                    <img src="{{ asset('images/icons/google.png') }}" alt="">
+                                </a>
+                                <a href="{{ route('socialite.redirect', 'github') }}" class="social-btn">
+                                    <img src="{{ asset('images/icons/github.png') }}" alt="">
+                                </a>
+                                <a href="{{ route('socialite.redirect', 'gitlab') }}" class="social-btn">
+                                    <img src="{{ asset('images/icons/gitlab (1).png') }}" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+
                     </div>
                     <form action="">
                         <div class="form-one form-step active">

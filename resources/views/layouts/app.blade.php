@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AlurKerja</title>
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -30,6 +31,9 @@
 
             <!-- Main Content -->
             @yield('content')
+            <main>
+                {{ $slot }}
+            </main>
             <!-- End Main Content -->
 
             <!-- FOOTER -->
