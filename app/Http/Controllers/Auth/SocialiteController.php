@@ -29,6 +29,7 @@ class SocialiteController extends Controller
     public function store($socialUser, $provider)
     {
         $socialAccount = ModelsSocialite::where('provider_id', $socialUser->getId())->where('provider_name', $provider)->first();
+        //->where('provider_token', $socialUser->getToken())
 
         if (!$socialAccount) {
             $user = User::where('email', $socialUser->getEmail())->first();
@@ -37,6 +38,7 @@ class SocialiteController extends Controller
                 $user = User::updateOrCreate([
                     'name' => $socialUser->getName() ? $socialUser->getName() : $socialUser->getNickname(),
                     'email' => $socialUser->getEmail(),
+                    'profile_picture' => $socialUser->getAvatar(),
                 ]);
             }
 
