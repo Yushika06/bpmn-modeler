@@ -24,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/projects', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+    Route::put('/projects/{project}', 'ProjectController@update')->name('projects.update');
+    Route::post('/projects/{project}/requestCancel', 'ProjectController@requestCancel')->name('projects.requestCancel');
 });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');

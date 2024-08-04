@@ -1,9 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     @vite('resources/css/app.css')
 
-    <div class="p-5 h-screen bg-gray-100">
+    <div class="p-20 h-screen bg-gray-100">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newProjectModal">New Project</a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="newProjectModal" tabindex="-1" role="dialog" aria-labelledby="newProjectModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newProjectModalLabel">New Project</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" action="{{ route('projects.store') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="projectName">Project Name</label>
+                                <input type="text" class="form-control" id="projectName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDescription">Description</label>
+                                <textarea class="form-control" id="projectDescription" name="description" rows="3" required></textarea>
+                            </div>
+                            <!-- Add other necessary fields here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <h1 class="text-xl mb-2">My Projects</h1>
 
         <div class="overflow-auto rounded-lg shadow hidden md:block">
@@ -18,14 +56,15 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    @foreach($projects as $project)
+                    @foreach ($projects as $project)
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                 <a href="#" class="font-bold text-blue-500 hover:underline">{{ $project->name }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ $project->description }}</td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                <span
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
                                     <!-- Assume you have a method to get the status name -->
                                     {{ $project->status->name }}
                                 </span>
