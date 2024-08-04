@@ -3,48 +3,93 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\CompanySize;
+use App\Models\Position;
+use App\Models\City;
+use App\Models\Province;
+use App\Models\AddressDetail;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    // Show the registration form
+    public function create()
     {
-        return view('auth.register');
+        $company_sizes = CompanySize::all();
+        $companies = Company::all();
+        $positions = Position::all();
+        $cities = City::all();
+        $provinces = Province::all();
+
+        return view('auth.register', compact('company_sizes', 'positions', 'cities', 'provinces', 'companies'));
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    // Handle the registration process
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'company_name' => 'required|string',
+            'position_name' => 'required|string',
+            'province_name' => 'required|string',
+            'city_name' => 'required|string',
+            'company_size_name' => 'required|string',
+            'address_detail' => 'required|string|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            $company = Company::firstOrCreate(['name' => $validatedData['company_name']]);
+            $position = Position::firstOrCreate(['name' => $validatedData['position_name']]);
+            $province = Province::firstOrCreate(['name' => $validatedData['province_name']]);
+            $city = City::firstOrCreate(['name' => $validatedData['city_name']]);
+            $companySize = CompanySize::firstOrCreate(['name' => $validatedData['company_size_name']]);
 
-        event(new Registered($user));
+            // Ensure company is linked with company size
+            $company->company_size_id = $companySize->id;
+            $company->save();
 
-        Auth::login($user);
+            $position->company_id = $company->id;
+            $position->save();
 
-        return redirect(route('dashboard', absolute: false));
+            // Create or update address detail
+            $addressDetail = AddressDetail::updateOrCreate([
+                'address' => $validatedData['address_detail'],
+                'province_id' => $province->id,
+                'city_id' => $city->id,
+            ]);
+
+            // Create user
+            $user = User::create([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'company_id' => $company->id,
+                'position_id' => $position->id,
+                'address_details_id' => $addressDetail->id,
+                'whatsapp_number' => $validatedData['whatsapp_number'],
+            ]);
+
+            if ($request->hasFile('profile_picture')) {
+                $user->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
+            }
+
+            auth()->login($user);
+
+            // Redirect with a success message
+            Session::flash('message', 'Successfully registered!');
+            return Redirect::to('/');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

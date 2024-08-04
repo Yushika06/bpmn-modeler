@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,9 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('register', [RegisteredUserController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,8 +27,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('socialite.redirect');
 Route::get('/auth/{provider}/callback',  [SocialiteController::class, 'callback'])->name('socialite.callback');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('register', [AuthController::class, 'create'])->name(name:'register');
-    Route::post('register', [AuthController::class, 'store'])->name(name:'register-post');
-});
 require __DIR__ . '/auth.php';

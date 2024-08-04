@@ -57,75 +57,113 @@
 
 
                     </div>
-                    <form action="">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="form-one form-step active">
                             <div class="bg-svg"></div>
                             <h2><i class="fa-solid fa-address-card"></i> Personal Information</h2>
                             <p>Enter your personal information correctly</p>
                             <div>
-                                <label>Your Name</label>
-                                <input type="text" placeholder="e.g. John Smith">
+                                <label for="name">Your Name</label>
+                                <input id="name" type="text" class="form-control" name="name"
+                                    value="{{ old('name') }}" required>
                             </div>
                             <div>
-                                <label>Your Company</label>
-                                {{-- <div class="grouping"> --}}
-                                <input type="text" placeholder="e.g. PT Javan Cipta Solusi">
+                                <label for="company_name">Your Company</label>
+                                <input list="companies" id="company_name" name="company_name"
+                                    value="{{ old('company_name') }}" required>
+                                <datalist id="companies">
+                                    @foreach ($companies as $company)
+                                        <option value="{{ $company->name }}">
+                                    @endforeach
+                                </datalist>
                             </div>
                             <div>
-                                <label>Company Size:</label>
-                                <input type="text" placeholder="e.g. Medium - <500 employi">
+                                <label for="company_size_name">Company Size</label>
+                                <input list="company_sizes" id="company_size_name" name="company_size_name"
+                                    value="{{ old('company_size_name') }}" required>
+                                <datalist id="company_sizes">
+                                    @foreach ($company_sizes as $company_size)
+                                        <option value="{{ $company_size->name }}">
+                                    @endforeach
+                                </datalist>
                             </div>
                             <div>
-                                <label>Your Position</label>
-                                <input type="text" placeholder="e.g. PHP Programmer Internship">
+                                <label for="position">Position</label>
+                                <input list="positions" id="position" name="position" value="{{ old('position') }}"
+                                    required>
+                                <datalist id="positions">
+                                    @foreach ($positions as $position)
+                                        <option value="{{ $position->name }}">
+                                    @endforeach
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-two form-step">
                             <div class="bg-svg"></div>
                             <h2><i class="fa-solid fa-address-book"></i> Contact</h2>
                             <div>
-                                <label>WhatsApp</label>
-                                <input type="tel" placeholder="+62xxxxxxxxxxx">
+                                <label for="number_whatsapp">WhatsApp </label>
+                                <input id="number_whatsapp" type="text" class="form-control" name="number_whatsapp"
+                                    value="{{ old('+6281234567890') }}" required>
                             </div>
                             <div>
-                                <label>Address</label>
-                                <input type="text" placeholder="Perum. Sukoharjo, Kec. Ngaglik">
+                                <label for="address_detail">Address Detail</label>
+                                <input id="address_details" type="text" class="form-control" name="address_detail"
+                                    value="{{ old('e.g. Perum. Sukoharjo, Kec. Ngaglik') }}" required>
                             </div>
                             <div>
-                                <label>City</label>
-                                <input type="text" placeholder="Sleman">
+                                <label for="city">City</label>
+                                <input list="cities" id="city" name="city" value="{{ old('city') }}"
+                                    required>
+                                <datalist id="cities">
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->name }}">
+                                    @endforeach
+                                </datalist>
                             </div>
                             <div>
-                                <label>Province</label>
-                                <select name="provines" placeholder="e.g. Yogyakarta">
-                                    <option value="">Please Select</option>
-                                    <option value="1">Jawa Barat</option>
-                                </select>
+                                <label for="province">Province</label>
+                                <input list="provinces" id="province" name="province" value="{{ old('province') }}"
+                                    required>
+                                <datalist id="provinces">
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province->name }}">
+                                    @endforeach
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-three form-step">
                             <div class="bg-svg"></div>
                             <h2><i class="fa-solid fa-user-lock"></i> Security</h2>
                             <div>
-                                <label>Email</label>
-                                <input type="email" placeholder="Your email address">
+                                <label for="email">Email</label>
+                                <input id="email" type="email" class="form-control" name="email"
+                                    value="{{ old('your email address') }}" required>
                             </div>
                             <div>
-                                <label>Password</label>
-                                <input type="password" placeholder="Password">
+                                <label for="password">Password</label>
+                                <input id="password" type="password" class="form-control" name="password" required>
                             </div>
                             <div>
-                                <input type="password" placeholder="Confirm password">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required>
                             </div>
-                            {{-- <div class="checkbox">
-                            <input type="checkbox">
-                            <label>Receive our news and special offers</label>
-                        </div> --}}
                         </div>
                         <div class="btn-group">
                             <button type="button" class="btn-prev" disabled>Back</button>
                             <button type="button" class="btn-next">Next Step</button>
-                            <button type="button" class="btn-submit">Submit</button>
+                            <button type="submit" class="btn-submit btn-primary">Register</button>
                         </div>
                     </form>
                 </div>
@@ -134,6 +172,7 @@
         <script>
             const nextButton = document.querySelector('.btn-next');
             const prevButton = document.querySelector('.btn-prev');
+            const form = document.querySelector('form');
             const steps = document.querySelectorAll('.step');
             const form_steps = document.querySelectorAll('.form-step');
             let active = 1;
@@ -158,17 +197,16 @@
                 console.log('step.length =>' + steps.length);
                 console.log('active => ' + active);
 
-                //toggle .active class for each list item
-                steps.forEach((steps, i) => {
+                steps.forEach((step, i) => {
                     if (i == (active - 1)) {
-                        steps.classList.add('active');
+                        step.classList.add('active');
                         form_steps[i].classList.add('active');
                         console.log('1 =>' + i);
                     } else {
-                        steps.classList.remove('active');
+                        step.classList.remove('active');
                         form_steps[i].classList.remove('active');
                     }
-                })
+                });
 
                 if (active === 1) {
                     prevButton.disabled = true;
@@ -178,7 +216,7 @@
                     prevButton.disabled = false;
                     nextButton.disabled = false;
                 }
-            }
+            };
         </script>
     </div>
 </body>
