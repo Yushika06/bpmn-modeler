@@ -172,7 +172,6 @@
         <script>
             const nextButton = document.querySelector('.btn-next');
             const prevButton = document.querySelector('.btn-prev');
-            const form = document.querySelector('form');
             const steps = document.querySelectorAll('.step');
             const form_steps = document.querySelectorAll('.form-step');
             let active = 1;
@@ -197,16 +196,17 @@
                 console.log('step.length =>' + steps.length);
                 console.log('active => ' + active);
 
-                steps.forEach((step, i) => {
+                //toggle .active class for each list item
+                steps.forEach((steps, i) => {
                     if (i == (active - 1)) {
-                        step.classList.add('active');
+                        steps.classList.add('active');
                         form_steps[i].classList.add('active');
                         console.log('1 =>' + i);
                     } else {
-                        step.classList.remove('active');
+                        steps.classList.remove('active');
                         form_steps[i].classList.remove('active');
                     }
-                });
+                })
 
                 if (active === 1) {
                     prevButton.disabled = true;
@@ -216,7 +216,7 @@
                     prevButton.disabled = false;
                     nextButton.disabled = false;
                 }
-            };
+            }
         </script>
     </div>
 </body>
