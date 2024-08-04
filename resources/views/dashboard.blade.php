@@ -19,7 +19,7 @@
                         Home
                         <span class="material-icons-outlined float-right">keyboard_arrow_right</span>
                     </a>
-                    <a href="" class="inline-block text-gray-600 hover:text-black my-4 w-full">
+                    <a href="/projects" class="inline-block text-gray-600 hover:text-black my-4 w-full">
                         <span class="material-icons-outlined float-left pr-2">folder_copy</span>
                         My Projects
                         <span class="material-icons-outlined float-right">keyboard_arrow_right</span>

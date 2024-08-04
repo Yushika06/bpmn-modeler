@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
                 $user->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
             }
 
-            auth()->login($user);
+        $user->save();
 
             // Redirect with a success message
             Session::flash('message', 'Successfully registered!');

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Modeler extends Model
+class Status extends Model
 {
     use HasFactory;
-    protected $fillable = ['bpmn'];
+    protected $fillable = ['name'];
 
-    public function project(){
-        return $this->hasOne(Project::class);
+    public function projects(){
+        return $this->hasMany(Project::class);
     }
 }
