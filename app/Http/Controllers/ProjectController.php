@@ -67,9 +67,11 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $project = Project::findOrFail($id);
-        $modeler = Modeler::where('project_id', $id)->first();
-        return view('projects.show', compact('project', 'modeler'));
+        $project = Project::with('modeler')->findOrFail($id);
+        return view('projects.show', compact('project'));
+        // $project = Project::findOrFail($id);
+        // $modeler = Modeler::where('project_id', $id)->first();
+        // return view('projects.show', compact('project', 'modeler'));
     }
     public function update(Request $request, Project $project)
     {

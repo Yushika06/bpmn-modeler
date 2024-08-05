@@ -12,9 +12,9 @@
                     Edit Project Details
                 </button>
 
-                @if ($modeler)
+                @if ($project->modeler)
                     <!-- If a modeler exists, show the Edit button -->
-                    <a href="{{ route('modeler.edit', $modeler->id) }}"
+                    <a href="{{ route('modeler.edit', $project->modeler->id) }}"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit BPMN Modeler
                     </a>

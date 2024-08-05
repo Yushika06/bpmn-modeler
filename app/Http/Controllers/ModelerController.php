@@ -18,17 +18,57 @@ class ModelerController extends Controller
 
         return view('project.show', compact('project', 'modeler'));
     }
-    public function create(Request $request)
+    public function create($project_id)
     {
-        $projectId = $request->query('project_id');
-        // Return the view for creating a new modeler, passing the project ID
-        return view('projects.modelers.create', compact('projectId'));
+        $project = Project::findOrFail($project_id);
+        return view('modeler.create', compact('project'));
     }
 
-    public function edit($id)
+    public function store(Request $request)
     {
-        $modeler = Modeler::findOrFail($id);
-        // Return the view for editing the modeler
-        return view('projects.modelers.edit', compact('modeler'));
+        $request->validate([
+            'bpmn' => 'required',
+        ]);
+
+        $modeler = Modeler::create([
+            'project_id' => $request->project_id,
+            'bpmn' => '',
+        ]);
+
+        $fileName = 'bpmn_' . $modeler->id . '.xml';
+        $filePath = public_path('bpmn/' . $fileName);
+
+        // Save the BPMN XML to a file
+        file_put_contents($filePath, $request->bpmn);
+
+        // Update the modeler record with the file name
+        $modeler->update([
+            'bpmn' => $fileName,
+        ]);
+
+        return redirect()->route('projects.show', $modeler->project_id);
     }
+
+    public function update(Request $request, Modeler $modeler)
+    {
+        $request->validate([
+            'bpmn' => 'required',
+        ]);
+
+        $fileName = 'bpmn_' . $modeler->id . '.xml';
+        $filePath = public_path('bpmn/' . $fileName);
+
+        // Save the BPMN XML to a file
+        file_put_contents($filePath, $request->bpmn);
+
+        // Update the modeler record with the file name
+        $modeler->update([
+            'bpmn' => $fileName,
+        ]);
+
+        return redirect()->route('projects.show', $modeler->project_id);
+    }
+
+
+
 }

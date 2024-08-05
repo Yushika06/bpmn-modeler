@@ -13,4 +13,9 @@ class Modeler extends Model
     public function project(){
         return $this->hasOne(Project::class);
     }
+    public function getBpmnContentAttribute()
+    {
+        $filePath = public_path('bpmn/' . $this->bpmn);
+        return file_exists($filePath) ? file_get_contents($filePath) : '';
+    }
 }

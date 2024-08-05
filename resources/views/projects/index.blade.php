@@ -44,6 +44,7 @@
             </div>
         </div>
 
+        <br />
         <h1 class="text-xl mb-2">My Projects</h1>
 
         <div class="overflow-auto rounded-lg shadow hidden md:block">
@@ -61,7 +62,8 @@
                     @foreach ($projects as $project)
                         <tr class="bg-white">
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                <a href="{{ route('projects.show', $project->id) }}" class="font-bold text-blue-500 hover:underline">{{ $project->name }}</a>
+                                <a href="{{ route('projects.show', $project->id) }}"
+                                    class="font-bold text-blue-500 hover:underline">{{ $project->name }}</a>
                             </td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">{{ $project->description }}</td>
                             <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
