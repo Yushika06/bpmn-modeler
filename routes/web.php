@@ -29,9 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
     Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
-    Route::post('/projects/{project}/requestCancel', 'ProjectController@requestCancel')->name('projects.requestCancel');
-    Route::get('/modeler/create', [ModelerController::class, 'create'])->name('modeler.create');
-    Route::get('/modeler/{id}/edit', [ModelerController::class, 'edit'])->name('modeler.edit');
 
 });
 

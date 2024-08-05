@@ -22,13 +22,13 @@ class ModelerController extends Controller
     {
         $projectId = $request->query('project_id');
         // Return the view for creating a new modeler, passing the project ID
-        return view('modeler.create', compact('projectId'));
+        return view('projects.modelers.create', compact('projectId'));
     }
 
     public function edit($id)
     {
         $modeler = Modeler::findOrFail($id);
         // Return the view for editing the modeler
-        return view('modeler.edit', compact('modeler'));
+        return view('projects.modelers.edit', compact('modeler'));
     }
 }

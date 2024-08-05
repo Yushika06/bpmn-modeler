@@ -336,3 +336,11 @@
 </body>
 
 </html>
+
+
+
+<!--  -->
+
+// Route::post('/projects/{project}/requestCancel', 'ProjectController@requestCancel')->name('projects.requestCancel');
+    Route::get('/modeler/create', [ModelerController::class, 'create'])->name('projects.modelers.create');
+    Route::get('/modeler/{id}/edit', [ModelerController::class, 'edit'])->name('projects.modelers.edit');
