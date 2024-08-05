@@ -9,13 +9,20 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function show()
+
+    /**
+     * Display the specified project.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         // Fetch all projects
         $projects = Project::all();
 
         // Return view with project data
-        return view('projects.show', compact('projects'));
+        return view('projects.index', compact('projects'));
     }
     public function create()
     {
@@ -42,7 +49,28 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.show')->with('success', 'Project created successfully.');
     }
+    // public function update(Request $request, Project $project)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //     ]);
 
+    //     $project->update([
+    //         'name' => $request->name,
+    //         'description' => $request->description,
+    //         // Update other necessary fields
+    //     ]);
+
+    //     return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+    // }
+
+    public function show($id)
+    {
+        $project = Project::findOrFail($id);
+        $modeler = Modeler::where('project_id', $id)->first();
+        return view('projects.show', compact('project', 'modeler'));
+    }
     public function update(Request $request, Project $project)
     {
         $request->validate([
@@ -56,19 +84,19 @@ class ProjectController extends Controller
             // Update other necessary fields
         ]);
 
-        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
     }
 
-    public function requestCancel(Request $request, Project $project)
-    {
-        // Handle the request to cancel
-        // For example, you can send a notification to the admin
-        // or update the project's status to 'pending cancelation'
+    // public function requestCancel(Request $request, Project $project)
+    // {
+    //     // Handle the request to cancel
+    //     // For example, you can send a notification to the admin
+    //     // or update the project's status to 'pending cancelation'
 
-        // Example: Update the project's status
-        $project->update(['status' => 'pending cancelation']);
+    //     // Example: Update the project's status
+    //     $project->update(['status' => 'pending cancelation']);
 
-        return redirect()->route('projects.index')->with('success', 'Cancelation request sent successfully.');
-    }
+    //     return redirect()->route('projects.index')->with('success', 'Cancelation request sent successfully.');
+    // }
 }
 

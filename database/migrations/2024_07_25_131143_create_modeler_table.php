@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModelerTable extends Migration
+class CreateModelersTable extends Migration
 {
     public function up()
     {
-        Schema::create('modeler', function (Blueprint $table) {
+        Schema::create('modelers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->text('bpmn');
@@ -19,6 +19,6 @@ class CreateModelerTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('modeler');
+        Schema::dropIfExists('modelers');
     }
 }

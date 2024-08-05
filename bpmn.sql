@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 02, 2024 at 03:50 AM
+-- Generation Time: Aug 05, 2024 at 02:19 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.9
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bpmn-1`
+-- Database: `bpmn`
 --
 
 -- --------------------------------------------------------
@@ -124,12 +124,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2024_07_25_131138_create_company_sizes_table', 1),
 (5, '2024_07_25_131139_create_companies_table', 1),
 (6, '2024_07_25_131140_create_positions_table', 1),
-(7, '2024_07_25_131141_create_users_table', 1),
-(8, '2024_07_25_131142_create_projects_table', 1),
-(9, '2024_07_25_131143_create_modeler_table', 1),
-(10, '2024_07_25_134405_create_sessions_table', 1),
-(11, '2024_07_30_133147_create_cache_table', 1),
-(12, '2024_07_30_152021_create_socialite_table', 1);
+(7, '2024_07_25_131141_create_statuses_table', 1),
+(8, '2024_07_25_131141_create_users_table', 1),
+(9, '2024_07_25_131142_create_projects_table', 1),
+(10, '2024_07_25_131143_create_modeler_table', 1),
+(11, '2024_07_25_134405_create_sessions_table', 1),
+(12, '2024_07_30_133147_create_cache_table', 1),
+(13, '2024_07_30_152021_create_socialite_table', 1);
 
 -- --------------------------------------------------------
 
@@ -169,10 +170,18 @@ CREATE TABLE `projects` (
   `id` bigint UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `status_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `user_id` bigint UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `name`, `description`, `user_id`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 'BPMN Modeler', 'a', 1, 1, '2024-08-04 19:05:24', '2024-08-04 19:05:24');
 
 -- --------------------------------------------------------
 
@@ -202,6 +211,13 @@ CREATE TABLE `sessions` (
   `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('JiMtPJkFmFi8TImMjGRk9zumevyY4rdeNjI12Emn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibkRQMHNVQmdmWUd4YzVhb1oxZmIzd3RseERyTVlDQjNCM09wRWZDQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9qZWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1722823967);
+
 -- --------------------------------------------------------
 
 --
@@ -215,9 +231,37 @@ CREATE TABLE `socialite` (
   `provider_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provider_token` longtext COLLATE utf8mb4_unicode_ci,
   `provider_refresh_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `socialite`
+--
+
+INSERT INTO `socialite` (`id`, `user_id`, `provider_id`, `provider_name`, `provider_token`, `provider_refresh_token`, `profile_picture`, `created_at`, `updated_at`) VALUES
+(1, 1, '176973677', 'github', NULL, NULL, NULL, '2024-08-04 19:04:36', '2024-08-04 19:04:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `statuses`
+--
+
+CREATE TABLE `statuses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Pending', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -239,6 +283,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `profile_picture`, `whatsapp_number`, `company_id`, `position_id`, `address_details_id`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'Irana06', 'kirainova11@gmail.com', NULL, 'https://avatars.githubusercontent.com/u/176973677?v=4', NULL, NULL, NULL, NULL, 'client', '2024-08-04 19:04:36', '2024-08-04 19:04:36');
 
 --
 -- Indexes for dumped tables
@@ -309,7 +360,8 @@ ALTER TABLE `positions`
 --
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `projects_user_id_foreign` (`user_id`);
+  ADD KEY `projects_user_id_foreign` (`user_id`),
+  ADD KEY `projects_status_id_foreign` (`status_id`);
 
 --
 -- Indexes for table `provinces`
@@ -329,6 +381,12 @@ ALTER TABLE `sessions`
 -- Indexes for table `socialite`
 --
 ALTER TABLE `socialite`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `statuses`
+--
+ALTER TABLE `statuses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -373,7 +431,7 @@ ALTER TABLE `company_sizes`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `modeler`
@@ -391,7 +449,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -403,13 +461,19 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `socialite`
 --
 ALTER TABLE `socialite`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `statuses`
+--
+ALTER TABLE `statuses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -450,6 +514,7 @@ ALTER TABLE `positions`
 -- Constraints for table `projects`
 --
 ALTER TABLE `projects`
+  ADD CONSTRAINT `projects_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `projects_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
