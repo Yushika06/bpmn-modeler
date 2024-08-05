@@ -13,8 +13,8 @@ class CompanySizeTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('company_sizes')->insert([
-            ['id' => 1, 'size' => 'Small - <100 Employees'],
-            ['id' => 2, 'size' => 'Medium - <500 Employees'],
+            ['id' => 1, 'name' => 'Small - <100 Employees'],
+            ['id' => 2, 'name' => 'Medium - <500 Employees'],
         ]);
     }
 }

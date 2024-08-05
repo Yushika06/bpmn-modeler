@@ -11,7 +11,7 @@ class CreateModelersTable extends Migration
         Schema::create('modelers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('bpmn');
+            $table->longText('bpmn');
             $table->foreignId('project_id')->constrained('projects');
             // $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
         });

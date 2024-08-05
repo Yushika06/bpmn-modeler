@@ -9,13 +9,6 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-
-    /**
-     * Display the specified project.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         // Fetch all projects
@@ -24,13 +17,11 @@ class ProjectController extends Controller
         // Return view with project data
         return view('projects.index', compact('projects'));
     }
+
     public function create()
     {
-
         $users = User::all();
-        $modeler = Modeler::all();
-
-        return view('projects.create', compact('users', 'modeler'));
+        return view('projects.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -38,7 +29,6 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            // add more validate if require
         ]);
 
         $project = new Project();
@@ -47,32 +37,28 @@ class ProjectController extends Controller
         $project->user_id = auth()->id(); // or $request->user()->id
         $project->save();
 
-        return redirect()->route('projects.show')->with('success', 'Project created successfully.');
+        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
-    // public function update(Request $request, Project $project)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //     ]);
-
-    //     $project->update([
-    //         'name' => $request->name,
-    //         'description' => $request->description,
-    //         // Update other necessary fields
-    //     ]);
-
-    //     return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
-    // }
 
     public function show($id)
     {
         $project = Project::with('modeler')->findOrFail($id);
-        return view('projects.show', compact('project'));
-        // $project = Project::findOrFail($id);
-        // $modeler = Modeler::where('project_id', $id)->first();
-        // return view('projects.show', compact('project', 'modeler'));
+        $modeler = $project->modeler;
+
+        if ($modeler) {
+            $filePath = public_path('bpmn/' . $modeler->bpmn);
+            if (file_exists($filePath)) {
+                $bpmnXml = file_get_contents($filePath);
+            } else {
+                $bpmnXml = '';
+            }
+        } else {
+            $bpmnXml = '';
+        }
+
+        return view('projects.show', compact('project', 'bpmnXml'));
     }
+
     public function update(Request $request, Project $project)
     {
         $request->validate([
@@ -83,22 +69,8 @@ class ProjectController extends Controller
         $project->update([
             'name' => $request->name,
             'description' => $request->description,
-            // Update other necessary fields
         ]);
 
         return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
     }
-
-    // public function requestCancel(Request $request, Project $project)
-    // {
-    //     // Handle the request to cancel
-    //     // For example, you can send a notification to the admin
-    //     // or update the project's status to 'pending cancelation'
-
-    //     // Example: Update the project's status
-    //     $project->update(['status' => 'pending cancelation']);
-
-    //     return redirect()->route('projects.index')->with('success', 'Cancelation request sent successfully.');
-    // }
 }
-
