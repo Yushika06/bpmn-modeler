@@ -131,7 +131,10 @@
                                 </nav>
                             </aside>
 
-                            <form class="divide-y divide-gray-200 lg:col-span-9" action="#" method="POST">
+                            <form class="divide-y divide-gray-200 lg:col-span-9" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+
                                 <!-- Profile section -->
                                 <div class="py-6 px-4 sm:p-6 lg:pb-8">
                                     <div>
@@ -144,24 +147,20 @@
                                     <div class="mt-6 flex flex-col lg:flex-row">
                                         <div class="flex-grow space-y-6">
                                             <div>
-                                                <label for="username"
-                                                    class="block text-sm font-medium text-gray-700">Username</label>
+                                                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                                                 <div class="mt-1 flex rounded-md shadow-sm">
                                                     <span
                                                         class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">javan.co.id/alurkerja/</span>
-                                                    <input type="text" name="username" id="username"
-                                                        autocomplete="username"
-                                                        class="block w-full min-w-0 flex-grow rounded-none rounded-md border border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-                                                        value="deblewis">
+                                                    <input type="text" name="username" id="username" autocomplete="username" class="block w-full min-w-0 flex-grow rounded-none rounded-md border border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="{{ old('username', $user->name) }}">
                                                 </div>
                                             </div>
 
                                             <div>
-                                                <label for="about"
+                                                <label for="address_detail"
                                                     class="block text-sm font-medium text-gray-700">Address</label>
                                                 <div class="mt-1">
-                                                    <textarea id="about" name="about" rows="3"
-                                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
+                                                    <textarea id="address_detail" name="address_detail" rows="3"
+                                                        class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">{{ old('address', $user->addressDetails->address ?? '') }}</textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Street address for your profile
                                                 </p>
@@ -175,8 +174,7 @@
                                                     <div class="inline-block h-12 w-12 flex-shrink-0 overflow-hidden rounded-full"
                                                         aria-hidden="true">
                                                         <img class="h-full w-full rounded-full"
-                                                            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=320&amp;h=320&amp;q=80"
-                                                            alt="">
+                                                            src="{{ auth()->user()->profile_picture }}" alt="">
                                                     </div>
                                                     <div class="ml-5 rounded-md shadow-sm">
                                                         <div
@@ -202,8 +200,7 @@
                                                     class="absolute inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-75 text-sm font-medium text-white opacity-0 focus-within:opacity-100 hover:opacity-100">
                                                     <span>Change</span>
                                                     <span class="sr-only"> user photo</span>
-                                                    <input type="file" id="desktop-user-photo" name="user-photo"
-                                                        class="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0">
+                                                    <input type="file" id="desktop-user-photo" name="profile_picture" class="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0">
                                                 </label>
                                             </div>
                                         </div>
@@ -211,26 +208,21 @@
 
                                     <div class="mt-6 grid grid-cols-12 gap-6">
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="first-name"
+                                            <label for="province"
                                                 class="block text-sm font-medium text-gray-700">Province</label>
-                                            <input type="text" name="first-name" id="first-name"
-                                                autocomplete="given-name"
-                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                                            <input type="text" name="province" id="province" autocomplete="given-name" class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" value="{{ old('province', $user->addressDetails->province->name ?? '') }}">
                                         </div>
 
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="last-name"
-                                                class="block text-sm font-medium text-gray-700">City</label>
-                                            <input type="text" name="last-name" id="last-name"
-                                                autocomplete="family-name"
-                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                                            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                            <input type="text" name="city" id="city" autocomplete="family-name" class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" value="{{ old('city', $user->addressDetails->city->name ?? '') }}">
                                         </div>
 
                                         <div class="col-span-12">
-                                            <label for="url"
+                                            <label for="position"
                                                 class="block text-sm font-medium text-gray-700">Position</label>
-                                            <input type="text" name="url" id="url"
-                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                                            <input type="text" name="position" id="position"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" value="{{ old('position', $user->position->name ?? '') }}">
                                         </div>
 
                                         <div class="col-span-12 sm:col-span-6">
@@ -238,14 +230,14 @@
                                                 class="block text-sm font-medium text-gray-700">Company</label>
                                             <input type="text" name="company" id="company"
                                                 autocomplete="organization"
-                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" value="{{ old('company', $user->company->name ?? '') }}">
                                         </div>
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="last-name"
+                                            <label for="whatsapp_number"
                                                 class="block text-sm font-medium text-gray-700">WhatsApp</label>
-                                            <input type="text" name="last-name" id="last-name"
+                                            <input type="tel" name="whatsapp_number" id="whatsapp_number"
                                                 autocomplete="family-name"
-                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm">
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" value="{{ old('whatsapp', $user->whatsapp_number) }}">
                                         </div>
                                     </div>
                                 </div>
