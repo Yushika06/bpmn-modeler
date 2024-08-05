@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        #editProjectModal {
-            display: none;
-        }
-
-        #editProjectModal.show {
-            display: flex;
-        }
-    </style>
     <div class="min-h-screen bg-gray-100 flex items-center justify-center">
         <div class="bg-white shadow-md rounded-lg p-6 max-w-lg w-full">
             <h1 class="text-2xl font-bold mb-4">{{ $project->name }}</h1>
@@ -79,10 +70,12 @@
 
             editProjectBtn.addEventListener('click', function() {
                 editProjectModal.classList.remove('hidden');
+                editProjectModal.classList.add('flex');
             });
 
             closeModalBtn.addEventListener('click', function() {
                 editProjectModal.classList.add('hidden');
+                editProjectModal.classList.remove('flex');
             });
         });
     </script>

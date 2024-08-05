@@ -31,6 +31,7 @@
 
             <!-- Main Content -->
             @yield('content')
+            @yield('scripts')
             <!-- End Main Content -->
 
             <!-- FOOTER -->

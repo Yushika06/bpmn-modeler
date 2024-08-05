@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
+namespace App\Http\Controllers;
+
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ModelerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
