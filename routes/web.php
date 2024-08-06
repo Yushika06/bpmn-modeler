@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modeler/create', [ModelerController::class, 'create'])->name('modeler.create');
     Route::post('/modeler/store', [ModelerController::class, 'store'])->name('modeler.store');
     Route::get('/modeler/edit/{id}', [ModelerController::class, 'edit'])->name('modeler.edit');
-    Route::put('/modeler/update/{id}', [ModelerController::class, 'update'])->name('modeler.update');
+    Route::put('/modeler/{id}', [ModelerController::class, 'update'])->name('modeler.update');
 });
 
 require __DIR__ . '/auth.php';

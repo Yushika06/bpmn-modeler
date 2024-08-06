@@ -11,21 +11,21 @@
 
 <!-- needed for this example only -->
 <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
-    <div class="flex flex-col h-screen">
-        <div class="flex-grow">
-            <div id="bpmn-container" class="h-full"></div>
-        </div>
-        <div class="p-4 flex items-center justify-center">
-            <form id="bpmnForm" action="{{ route('modeler.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="bpmnXml" id="bpmnXmlInput">
-                <input type="text" name="fileName" placeholder="Enter filename" class="border rounded p-2 mr-2">
-                <button type="button" id="saveButton" class="bg-blue-500 text-white py-2 px-4 rounded">
-                    Create BPMN
-                </button>
-            </form>
-        </div>
+<div class="flex flex-col h-screen">
+    <div class="flex-grow">
+        <div id="bpmn-container" class="h-full"></div>
     </div>
+    <div class="p-4 flex items-center justify-center">
+        <form id="bpmnForm" action="{{ route('modeler.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="bpmnXml" id="bpmnXmlInput">
+            <input type="hidden" name="project_id" value="{{ $project_id }}">
+            <button type="button" id="saveButton" class="bg-blue-500 text-white py-2 px-4 rounded">
+                Create BPMN
+            </button>
+        </form>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
