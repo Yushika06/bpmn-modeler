@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function companySize()
@@ -36,7 +36,12 @@ class User extends Authenticatable
 
     public function position()
     {
-        return $this->belongsTo(Position::class);
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    public function addressDetail()
+    {
+        return $this->belongsTo(AddressDetail::class, 'address_details_id');
     }
 
     public function city()

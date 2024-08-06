@@ -20,8 +20,9 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $user = auth()->user();
-        $addressDetail = $user->addressDetail;
-        return view('profile.edit', compact('user', 'addressDetail'));
+        $address_detail = $user->addressDetail; // This may return null if there's no address detail
+
+        return view('profile.edit', compact('user', 'address_detail'));
     }
 
     /**
@@ -40,16 +41,16 @@ class ProfileController extends Controller
         $user->save();
 
         // Update address details
-        $addressDetail = $user->addressDetail;
-        if (!$addressDetail) {
-            $addressDetail = new AddressDetail();
-            $addressDetail->user_id = $user->id;
+        $address_detail = $user->address_detail;
+        if (!$address_detail) {
+            $address_detail = new AddressDetail();
+            $address_detail->user_id = $user->id;
         }
 
-        $addressDetail->province_id = $request->input('province_id');
-        $addressDetail->city_id = $request->input('city_id');
-        $addressDetail->address = $request->input('address');
-        $addressDetail->save();
+        $address_detail->province_id = $request->input('province_id');
+        $address_detail->city_id = $request->input('city_id');
+        $address_detail->address = $request->input('address');
+        $address_detail->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

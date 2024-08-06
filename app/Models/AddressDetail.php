@@ -13,10 +13,10 @@ class AddressDetail extends Model
 
     public function cities()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id');
     }
     public function provinces()
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class, 'province_id');
     }
 }
