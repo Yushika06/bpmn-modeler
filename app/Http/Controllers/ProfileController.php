@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\AddressDetail;
 use App\Models\City;
@@ -20,6 +21,7 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $user = auth()->user();
+        $user->load(['addressDetail.province', 'addressDetail.city']);
         $address_detail = $user->addressDetail; // This may return null if there's no address detail
 
         return view('profile.edit', compact('user', 'address_detail'));

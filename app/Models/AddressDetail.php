@@ -11,12 +11,12 @@ class AddressDetail extends Model
 
     protected $fillable = ['province_id', 'city_id', 'address'];
 
-    public function cities()
+    public function city()
     {
-        return $this->belongsTo(City::class, 'city_id');
+        return $this->belongsTo(City::class);
     }
-    public function provinces()
+    public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id');
+        return $this->belongsTo(Province::class);
     }
 }
