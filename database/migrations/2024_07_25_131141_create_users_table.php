@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_picture')->default('https://i.pinimg.com/originals/cc/9c/dc/cc9cdc2a345d7c3b7d032188b4991957.jpg');
             $table->string('whatsapp_number', 15)->nullable();
             $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->foreignId('position_id')->nullable()->constrained('positions');

@@ -51,7 +51,7 @@ class ModelerController extends Controller
         $modeler->project_id = $project_id;
         $modeler->save();
 
-        return redirect()->route('modeler.edit', $modeler->id)->with('success', 'BPMN model created successfully.');
+        return redirect()->route('projects.show', $modeler->id)->with('success', 'BPMN model created successfully.');
     }
 
     public function edit($id)
@@ -59,21 +59,20 @@ class ModelerController extends Controller
         $modeler = Modeler::find($id);
         return view('modeler.edit', [
             'modeler' => $modeler,
-            'bpmnXml' => $modeler->bpmnXml,
-            'project_id' => $modeler->project_id
+            'bpmnXml' => $modeler->bpmn,
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $modeler = Modeler::find($id);
-        $modeler->bpmnXml = $request->input('bpmnXml');
+        $modeler->bpmn = $request->input('bpmnXml');
         $modeler->save();
-    
-        return redirect()->route('modeler.edit', $id)->with('success', 'BPMN updated successfully');
+
+        return redirect()->route('projects.show', $modeler->project_id)->with('success', 'BPMN updated successfully');
     }
 }
-    
+
     // public function import(Request $request)
     // {
     //     $request->validate([

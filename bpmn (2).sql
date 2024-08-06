@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 05, 2024 at 02:19 AM
+-- Generation Time: Aug 06, 2024 at 01:08 PM
 -- Server version: 8.0.30
--- PHP Version: 8.3.9
+-- PHP Version: 8.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -135,16 +135,23 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modeler`
+-- Table structure for table `modelers`
 --
 
-CREATE TABLE `modeler` (
+CREATE TABLE `modelers` (
   `id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `bpmn` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bpmn` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `project_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `modelers`
+--
+
+INSERT INTO `modelers` (`id`, `created_at`, `updated_at`, `bpmn`, `project_id`) VALUES
+(1, '2024-08-06 06:07:30', '2024-08-06 06:07:30', '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_18ft6to\">\r\n    <bpmn2:participant id=\"Participant_09gemq8\" name=\"AlurKerja\" processRef=\"Process_1\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:laneSet id=\"LaneSet_1p60qw8\">\r\n      <bpmn2:lane id=\"Lane_1yuzkhq\">\r\n        <bpmn2:flowNodeRef>Event_07kp8p8</bpmn2:flowNodeRef>\r\n      </bpmn2:lane>\r\n      <bpmn2:lane id=\"Lane_0q13bnf\" />\r\n    </bpmn2:laneSet>\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n    <bpmn2:endEvent id=\"Event_07kp8p8\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_18ft6to\">\r\n      <bpmndi:BPMNShape id=\"Participant_09gemq8_di\" bpmnElement=\"Participant_09gemq8\" isHorizontal=\"true\">\r\n        <dc:Bounds x=\"580\" y=\"370\" width=\"600\" height=\"250\" />\r\n        <bpmndi:BPMNLabel />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"Lane_1yuzkhq_di\" bpmnElement=\"Lane_1yuzkhq\" isHorizontal=\"true\">\r\n        <dc:Bounds x=\"610\" y=\"370\" width=\"570\" height=\"125\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"Lane_0q13bnf_di\" bpmnElement=\"Lane_0q13bnf\" isHorizontal=\"true\">\r\n        <dc:Bounds x=\"610\" y=\"495\" width=\"570\" height=\"125\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"Event_07kp8p8_di\" bpmnElement=\"Event_07kp8p8\">\r\n        <dc:Bounds x=\"642\" y=\"412\" width=\"36\" height=\"36\" />\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>', 2);
 
 -- --------------------------------------------------------
 
@@ -181,7 +188,7 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `description`, `user_id`, `status_id`, `created_at`, `updated_at`) VALUES
-(1, 'BPMN Modeler', 'a', 1, 1, '2024-08-04 19:05:24', '2024-08-04 19:05:24');
+(2, 'Sepatu Ventera', 'lorem ipsum balbjaihgeughgeg', 1, 1, '2024-08-06 06:04:57', '2024-08-06 06:04:57');
 
 -- --------------------------------------------------------
 
@@ -216,7 +223,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('JiMtPJkFmFi8TImMjGRk9zumevyY4rdeNjI12Emn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibkRQMHNVQmdmWUd4YzVhb1oxZmIzd3RseERyTVlDQjNCM09wRWZDQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9qZWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1722823967);
+('Wdab59o9Nxd2QbHeZF2DOAS0VS0qTLn6oShZYs9l', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZHhpQ05ZOXI0Z1VmRUNtUnVXeGpnamp3MTJsRGxuM3ZYWHhlaDFrcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9tb2RlbGVyL2VkaXQvMSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1722949651);
 
 -- --------------------------------------------------------
 
@@ -241,7 +248,7 @@ CREATE TABLE `socialite` (
 --
 
 INSERT INTO `socialite` (`id`, `user_id`, `provider_id`, `provider_name`, `provider_token`, `provider_refresh_token`, `profile_picture`, `created_at`, `updated_at`) VALUES
-(1, 1, '176973677', 'github', NULL, NULL, NULL, '2024-08-04 19:04:36', '2024-08-04 19:04:36');
+(1, 1, '156431382', 'github', NULL, NULL, NULL, '2024-08-06 06:03:03', '2024-08-06 06:03:03');
 
 -- --------------------------------------------------------
 
@@ -274,7 +281,7 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `profile_picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_picture` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'https://i.pinimg.com/originals/cc/9c/dc/cc9cdc2a345d7c3b7d032188b4991957.jpg',
   `whatsapp_number` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `company_id` bigint UNSIGNED DEFAULT NULL,
   `position_id` bigint UNSIGNED DEFAULT NULL,
@@ -289,7 +296,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `profile_picture`, `whatsapp_number`, `company_id`, `position_id`, `address_details_id`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'Irana06', 'kirainova11@gmail.com', NULL, 'https://avatars.githubusercontent.com/u/176973677?v=4', NULL, NULL, NULL, NULL, 'client', '2024-08-04 19:04:36', '2024-08-04 19:04:36');
+(1, 'Yushika', 'yuunokio11@gmail.com', NULL, 'https://avatars.githubusercontent.com/u/156431382?v=4', NULL, NULL, NULL, NULL, 'client', '2024-08-06 06:03:03', '2024-08-06 06:03:03');
 
 --
 -- Indexes for dumped tables
@@ -342,9 +349,9 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `modeler`
+-- Indexes for table `modelers`
 --
-ALTER TABLE `modeler`
+ALTER TABLE `modelers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `modeler_project_id_foreign` (`project_id`);
 
@@ -434,10 +441,10 @@ ALTER TABLE `migrations`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `modeler`
+-- AUTO_INCREMENT for table `modelers`
 --
-ALTER TABLE `modeler`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `modelers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `positions`
@@ -449,7 +456,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -499,9 +506,9 @@ ALTER TABLE `companies`
   ADD CONSTRAINT `companies_company_size_id_foreign` FOREIGN KEY (`company_size_id`) REFERENCES `company_sizes` (`id`) ON DELETE SET NULL;
 
 --
--- Constraints for table `modeler`
+-- Constraints for table `modelers`
 --
-ALTER TABLE `modeler`
+ALTER TABLE `modelers`
   ADD CONSTRAINT `modeler_project_id_foreign` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`);
 
 --

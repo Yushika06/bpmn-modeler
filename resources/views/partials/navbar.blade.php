@@ -1,4 +1,4 @@
-<div class="dark-mode:text-gray-200 dark-mode:bg-gray-800 fixed z-20 w-full bg-white text-gray-700">
+<div class="dark-mode:text-gray-200 dark-mode:bg-gray-800 fixed z-20 w-full bg-white text-gray-700 shadow-md">
     <div x-data="{ open: true, profileMenu: false }"
         class="mx-auto flex max-w-screen-xl flex-col px-4 md:flex-row md:items-center md:justify-between md:px-6 lg:px-8">
         <div class="flex flex-row items-center justify-between p-4">
