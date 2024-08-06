@@ -6,13 +6,18 @@ use App\Models\Project;
 use App\Models\Modeler;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProjectController extends Controller
 {
+    use AuthorizesRequests;
     public function index()
     {
         // Fetch all projects
         $projects = Project::all();
+        $users = auth()->id();
+
+        $projects = Project::where('user_id', $users)->get();
 
         // Return view with project data
         return view('projects.index', compact('projects'));
@@ -40,11 +45,12 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
 
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = Project::with('modeler')->findOrFail($id);
+        $this->authorize('view', $project);
+    
         $modeler = $project->modeler;
-
+    
         if ($modeler) {
             $filePath = public_path('bpmn/' . $modeler->bpmn);
             if (file_exists($filePath)) {
@@ -55,22 +61,24 @@ class ProjectController extends Controller
         } else {
             $bpmnXml = '';
         }
-
+    
         return view('projects.show', compact('project', 'bpmnXml'));
     }
-
+    
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
+    
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-
+    
         $project->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-
+    
         return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
     }
 }
