@@ -10,10 +10,9 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\AddressDetail;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
@@ -47,49 +46,41 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        try {
-            $company = Company::firstOrCreate(['name' => $validatedData['company_name']]);
-            $position = Position::firstOrCreate(['name' => $validatedData['position_name']]);
-            $province = Province::firstOrCreate(['name' => $validatedData['province_name']]);
-            $city = City::firstOrCreate(['name' => $validatedData['city_name']]);
-            $companySize = CompanySize::firstOrCreate(['name' => $validatedData['company_size_name']]);
+        $companySize = CompanySize::firstOrCreate(['name' => $validatedData['company_size_name']]);
+        $company = Company::firstOrCreate(['name' => $validatedData['company_name']]);
 
-            // Ensure company is linked with company size
-            $company->company_size_id = $companySize->id;
-            $company->save();
+        // Ensure company is linked with company size
+        $company->company_size_id = $companySize->id;
+        $company->save();
 
-            $position->company_id = $company->id;
-            $position->save();
+        // Create or fetch the position without setting company_id
+        $position = Position::firstOrCreate(['name' => $validatedData['position_name'], 'company_id' => $company->id]);
 
-            // Create or update address detail
-            $addressDetail = AddressDetail::updateOrCreate([
-                'address' => $validatedData['address_detail'],
-                'province_id' => $province->id,
-                'city_id' => $city->id,
-            ]);
+        // Ensure the position is linked with the company if it doesn't have one already
 
-            // Create user
-            $user = User::create([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'password' => Hash::make($validatedData['password']),
-                'company_id' => $company->id,
-                'position_id' => $position->id,
-                'address_details_id' => $addressDetail->id,
-                'whatsapp_number' => $validatedData['whatsapp_number'],
-            ]);
+        $province = Province::firstOrCreate(['name' => $validatedData['province_name']]);
+        $city = City::firstOrCreate(['name' => $validatedData['city_name']]);
 
-            if ($request->hasFile('profile_picture')) {
-                $user->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
-            }
+        // Create or update address detail
+        $addressDetail = AddressDetail::updateOrCreate([
+            'address' => $validatedData['address_detail'],
+            'province_id' => $province->id,
+            'city_id' => $city->id,
+        ]);
+
+        // Create user
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'company_id' => $company->id,
+            'position_id' => $position->id,
+            'address_details_id' => $addressDetail->id,
+            'whatsapp_number' => $validatedData['whatsapp_number'],
+        ]);
 
         $user->save();
-
-            // Redirect with a success message
-            Session::flash('message', 'Successfully registered!');
-            return Redirect::to('/');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
-        }
+        Auth::login($user);
+        return redirect('/dashboard');
     }
 }

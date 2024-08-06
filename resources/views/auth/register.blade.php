@@ -57,18 +57,8 @@
 
 
                     </div>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <div class="form-one form-step active">
                             <div class="bg-svg"></div>
                             <h2><i class="fa-solid fa-address-card"></i> Personal Information</h2>
@@ -80,8 +70,7 @@
                             </div>
                             <div>
                                 <label for="company_name">Your Company</label>
-                                <input list="companies" id="company_name" name="company_name"
-                                    value="{{ old('company_name') }}" required>
+                                <input list="companies" id="company_name" name="company_name" value="{{ old('company_name') }}" required>
                                 <datalist id="companies">
                                     @foreach ($companies as $company)
                                         <option value="{{ $company->name }}">
@@ -90,8 +79,7 @@
                             </div>
                             <div>
                                 <label for="company_size_name">Company Size</label>
-                                <input list="company_sizes" id="company_size_name" name="company_size_name"
-                                    value="{{ old('company_size_name') }}" required>
+                                <input list="company_sizes" id="company_size_name" name="company_size_name" value="{{ old('company_size_name') }}" required>
                                 <datalist id="company_sizes">
                                     @foreach ($company_sizes as $company_size)
                                         <option value="{{ $company_size->name }}">
@@ -99,9 +87,8 @@
                                 </datalist>
                             </div>
                             <div>
-                                <label for="position">Position</label>
-                                <input list="positions" id="position" name="position" value="{{ old('position') }}"
-                                    required>
+                                <label for="position_name">Position</label>
+                                <input list="positions" id="position_name" name="position_name" value="{{ old('position_name') }}" required>
                                 <datalist id="positions">
                                     @foreach ($positions as $position)
                                         <option value="{{ $position->name }}">
@@ -113,19 +100,16 @@
                             <div class="bg-svg"></div>
                             <h2><i class="fa-solid fa-address-book"></i> Contact</h2>
                             <div>
-                                <label for="number_whatsapp">WhatsApp </label>
-                                <input id="number_whatsapp" type="text" class="form-control" name="number_whatsapp"
-                                    value="{{ old('+6281234567890') }}" required>
+                                <label for="whatsapp_number">WhatsApp</label>
+                                <input id="whatsapp_number" type="tel" class="form-control" name="whatsapp_number" value="{{ old('whatsapp_number') }}">
                             </div>
                             <div>
                                 <label for="address_detail">Address Detail</label>
-                                <input id="address_details" type="text" class="form-control" name="address_detail"
-                                    value="{{ old('e.g. Perum. Sukoharjo, Kec. Ngaglik') }}" required>
+                                <input id="address_detail" type="text" class="form-control" name="address_detail" value="{{ old('address_detail') }}" required>
                             </div>
                             <div>
-                                <label for="city">City</label>
-                                <input list="cities" id="city" name="city" value="{{ old('city') }}"
-                                    required>
+                                <label for="city_name">City</label>
+                                <input list="cities" id="city_name" name="city_name" value="{{ old('city_name') }}" required>
                                 <datalist id="cities">
                                     @foreach ($cities as $city)
                                         <option value="{{ $city->name }}">
@@ -133,9 +117,8 @@
                                 </datalist>
                             </div>
                             <div>
-                                <label for="province">Province</label>
-                                <input list="provinces" id="province" name="province" value="{{ old('province') }}"
-                                    required>
+                                <label for="province_name">Province</label>
+                                <input list="provinces" id="province_name" name="province_name" value="{{ old('province_name') }}" required>
                                 <datalist id="provinces">
                                     @foreach ($provinces as $province)
                                         <option value="{{ $province->name }}">
@@ -148,16 +131,15 @@
                             <h2><i class="fa-solid fa-user-lock"></i> Security</h2>
                             <div>
                                 <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control" name="email"
-                                    value="{{ old('your email address') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                             </div>
                             <div>
                                 <label for="password">Password</label>
                                 <input id="password" type="password" class="form-control" name="password" required>
                             </div>
                             <div>
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required>
+                                <label for="password-confirm">Confirm Password</label>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -170,53 +152,47 @@
             </div>
         </div>
         <script>
-            const nextButton = document.querySelector('.btn-next');
-            const prevButton = document.querySelector('.btn-prev');
-            const steps = document.querySelectorAll('.step');
-            const form_steps = document.querySelectorAll('.form-step');
-            let active = 1;
+document.addEventListener('DOMContentLoaded', function() {
+    const nextButton = document.querySelector('.btn-next');
+    const prevButton = document.querySelector('.btn-prev');
+    const submitButton = document.querySelector('.btn-submit');
+    const steps = document.querySelectorAll('.step');
+    const form_steps = document.querySelectorAll('.form-step');
+    let active = 1;
 
-            nextButton.addEventListener('click', () => {
-                active++;
-                if (active > steps.length) {
-                    active = steps.length;
-                }
-                updateProgress();
-            });
+    nextButton.addEventListener('click', () => {
+        active++;
+        if (active > steps.length) {
+            active = steps.length;
+        }
+        updateProgress();
+    });
 
-            prevButton.addEventListener('click', () => {
-                active--;
-                if (active < 1) {
-                    active = 1;
-                }
-                updateProgress();
-            });
+    prevButton.addEventListener('click', () => {
+        active--;
+        if (active < 1) {
+            active = 1;
+        }
+        updateProgress();
+    });
 
-            const updateProgress = () => {
-                console.log('step.length =>' + steps.length);
-                console.log('active => ' + active);
-
-                //toggle .active class for each list item
-                steps.forEach((steps, i) => {
-                    if (i == (active - 1)) {
-                        steps.classList.add('active');
-                        form_steps[i].classList.add('active');
-                        console.log('1 =>' + i);
-                    } else {
-                        steps.classList.remove('active');
-                        form_steps[i].classList.remove('active');
-                    }
-                })
-
-                if (active === 1) {
-                    prevButton.disabled = true;
-                } else if (active === steps.length) {
-                    nextButton.disabled = true;
-                } else {
-                    prevButton.disabled = false;
-                    nextButton.disabled = false;
-                }
+    const updateProgress = () => {
+        steps.forEach((step, i) => {
+            if (i === (active - 1)) {
+                step.classList.add('active');
+                form_steps[i].classList.add('active');
+            } else {
+                step.classList.remove('active');
+                form_steps[i].classList.remove('active');
             }
+        });
+        prevButton.disabled = active === 1;
+        nextButton.style.display = active === steps.length ? 'none' : 'inline-block';
+        submitButton.style.display = active === steps.length ? 'inline-block' : 'none';
+    };
+
+    updateProgress();
+});
         </script>
     </div>
 </body>
