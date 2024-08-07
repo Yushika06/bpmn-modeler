@@ -48,9 +48,9 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $this->authorize('view', $project);
-    
+
         $modeler = $project->modeler;
-    
+
         if ($modeler) {
             $filePath = public_path('bpmn/' . $modeler->bpmn);
             if (file_exists($filePath)) {
@@ -61,24 +61,38 @@ class ProjectController extends Controller
         } else {
             $bpmnXml = '';
         }
-    
+
         return view('projects.show', compact('project', 'bpmnXml'));
     }
-    
+
     public function update(Request $request, Project $project)
     {
         $this->authorize('update', $project);
-    
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-    
+
         $project->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-    
+
         return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
     }
+    public function destroy(Project $project)
+{
+    $this->authorize('delete', $project);
+
+    // Delete associated modeler first
+    if ($project->modeler) {
+        $project->modeler->delete();
+    }
+
+    // Delete the project
+    $project->delete();
+
+    return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
+}
 }

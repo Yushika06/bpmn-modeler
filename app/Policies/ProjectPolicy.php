@@ -33,4 +33,8 @@ class ProjectPolicy
     {
         return $user->id === $project->user_id;
     }
+    public function delete(User $user, Project $project)
+    {
+        return $user->id === $project->user_id;
+    }
 }
