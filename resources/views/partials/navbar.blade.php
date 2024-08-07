@@ -39,8 +39,8 @@
                 <div @mouseenter="profileMenu = true" @mouseleave="profileMenu = false"
                     class="relative mt-2 md:mt-0 md:ml-4">
                     <button @click="profileMenu = !profileMenu" class="focus:outline-none">
-                        <img src="{{ auth()->user()->profile_picture }}" alt="Profile"
-                            class="h-8 w-8 rounded-full object-cover">
+                        <a href="{{ route('profile.edit') }}"><img src="{{ auth()->user()->profile_picture }}" alt="Profile"
+                            class="h-8 w-8 rounded-full object-cover"></a>
                     </button>
                     <div x-show="profileMenu" @click.away="profileMenu = false"
                         class="absolute right-0 mt-0 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
