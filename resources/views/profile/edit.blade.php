@@ -88,36 +88,6 @@
                                         x-state-description="undefined: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, undefined: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
                                         <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                                             x-state-description="undefined: &quot;text-teal-500 group-hover:text-teal-500&quot;, undefined: &quot;text-gray-400 group-hover:text-gray-500&quot;"
-                                            x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0">
-                                            </path>
-                                        </svg>
-                                        <span class="truncate">Notifications</span>
-                                    </a>
-
-                                    <a href="#"
-                                        class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
-                                        x-state-description="undefined: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, undefined: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
-                                        <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                                            x-state-description="undefined: &quot;text-teal-500 group-hover:text-teal-500&quot;, undefined: &quot;text-gray-400 group-hover:text-gray-500&quot;"
-                                            x-description="Heroicon name: outline/credit-card"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z">
-                                            </path>
-                                        </svg>
-                                        <span class="truncate">Billing</span>
-                                    </a>
-
-                                    <a href="#"
-                                        class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
-                                        x-state-description="undefined: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, undefined: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
-                                        <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                                            x-state-description="undefined: &quot;text-teal-500 group-hover:text-teal-500&quot;, undefined: &quot;text-gray-400 group-hover:text-gray-500&quot;"
                                             x-description="Heroicon name: outline/squares-plus"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -125,9 +95,8 @@
                                                 d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z">
                                             </path>
                                         </svg>
-                                        <span class="truncate">Integrations</span>
+                                        <span class="truncate">Companies</span>
                                     </a>
-
                                 </nav>
                             </aside>
 
@@ -213,31 +182,39 @@
 
                                     <div class="mt-6 grid grid-cols-12 gap-6">
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
-                                            <input type="text" name="province" id="province" autocomplete="given-name"
+                                            <label for="province"
+                                                class="block text-sm font-medium text-gray-700">Province</label>
+                                            <input type="text" name="province" id="province"
+                                                autocomplete="given-name"
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-                                                value="{{ old('province', $user->addressDetail->province->name ?? '') }}" disabled>
+                                                value="{{ old('province', $user->addressDetail->province->name ?? '') }}"
+                                                disabled>
                                         </div>
 
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                                            <input type="text" name="city" id="city" autocomplete="family-name"
+                                            <label for="city"
+                                                class="block text-sm font-medium text-gray-700">City</label>
+                                            <input type="text" name="city" id="city"
+                                                autocomplete="family-name"
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                                                 value="{{ old('city', $user->addressDetail->city->name ?? '') }}" disabled>
                                         </div>
 
                                         <div class="col-span-12">
-                                            <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+                                            <label for="position"
+                                                class="block text-sm font-medium text-gray-700">Position</label>
                                             <input type="text" name="position" id="position"
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                                                 value="{{ old('position', $user->position->name ?? '') }}" disabled>
                                         </div>
 
                                         <div class="col-span-12 sm:col-span-6">
-                                            <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
-                                            <input type="text" name="company" id="company" autocomplete="organization"
+                                            <label for="company"
+                                                class="block text-sm font-medium text-gray-700">Company</label>
+                                            <input type="text" name="company" id="company"
+                                                autocomplete="organization"
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-                                                value="{{ old('company', $user->company->name ?? '') }}" disabled>
+                                                value="{{ old('company', $user->company->name) }}" disabled>
                                         </div>
                                         <div class="col-span-12 sm:col-span-6">
                                             <label for="whatsapp_number"
@@ -249,15 +226,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                    <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
-                                        <button type="submit" class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Edit Profile<button>
-                                    </div>
+                                <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
+                                    <button type="submit"
+                                        class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Edit
+                                        Profile<button>
                                 </div>
-                            </form>
                         </div>
+                        </form>
                     </div>
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
 @endsection
