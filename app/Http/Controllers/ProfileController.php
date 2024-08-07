@@ -34,10 +34,18 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $user->fill($request->only(['name', 'whatsapp_number', 'profile_picture', 'company_id', 'position_id']));
+        $user->fill($request->only(['username', 'whatsapp_number', 'company_id', 'position_id']));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            // Handle file upload
+            $file = $request->file('profile_picture');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('photo'), $filename);
+            $user->profile_picture = $filename;
         }
 
         $user->save();
@@ -51,7 +59,7 @@ class ProfileController extends Controller
 
         $address_detail->province_id = $request->input('province_id');
         $address_detail->city_id = $request->input('city_id');
-        $address_detail->address = $request->input('address');
+        $address_detail->address = $request->input('address_detail');
         $address_detail->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');

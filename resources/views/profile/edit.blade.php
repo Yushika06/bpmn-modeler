@@ -2,6 +2,20 @@
 
 
 @section('content')
+    <style>
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .navigation-links a {
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
     <div class="bg-gray-100">
@@ -51,52 +65,41 @@
                             <aside class="py-6 lg:col-span-3">
                                 <nav class="space-y-1">
 
-                                    <a href="#"
-                                        class="bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
-                                        x-state:on="Current" x-state:off="Default" aria-current="page"
-                                        x-state-description="Current: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, Default: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
-                                        <svg class="text-teal-500 group-hover:text-teal-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                                            x-state:on="Current" x-state:off="Default"
-                                            x-state-description="Current: &quot;text-teal-500 group-hover:text-teal-500&quot;, Default: &quot;text-gray-400 group-hover:text-gray-500&quot;"
-                                            x-description="Heroicon name: outline/user-circle"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z">
-                                            </path>
-                                        </svg>
-                                        <span class="truncate">Profile</span>
-                                    </a>
+                                    <div class="navigation-links">
+                                        <a href="#profile-section"
+                                           class="bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                                           aria-current="page"
+                                           onclick="showSection(event, 'profile')">
+                                            <svg class="text-teal-500 group-hover:text-teal-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            <span class="truncate">Profile</span>
+                                        </a>
 
-                                    <a href="#"
-                                        class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
-                                        x-state-description="undefined: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, undefined: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
-                                        <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                                            x-state-description="undefined: &quot;text-teal-500 group-hover:text-teal-500&quot;, undefined: &quot;text-gray-400 group-hover:text-gray-500&quot;"
-                                            x-description="Heroicon name: outline/cog" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495">
-                                            </path>
-                                        </svg>
-                                        <span class="truncate">Account</span>
-                                    </a>
+                                        <a href="#account-section"
+                                           class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                                           onclick="showSection(event, 'account')">
+                                            <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"></path>
+                                            </svg>
+                                            <span class="truncate">Account</span>
+                                        </a>
 
-                                    <a href="#"
-                                        class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
-                                        x-state-description="undefined: &quot;bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700&quot;, undefined: &quot;border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900&quot;">
-                                        <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                                            x-state-description="undefined: &quot;text-teal-500 group-hover:text-teal-500&quot;, undefined: &quot;text-gray-400 group-hover:text-gray-500&quot;"
-                                            x-description="Heroicon name: outline/squares-plus"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z">
-                                            </path>
-                                        </svg>
-                                        <span class="truncate">Companies</span>
-                                    </a>
+                                        <a href="#company-section"
+                                           class="border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
+                                           onclick="showSection(event, 'company')">
+                                            <svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z"></path>
+                                            </svg>
+                                            <span class="truncate">Company</span>
+                                        </a>
+                                    </div>
                                 </nav>
                             </aside>
 
@@ -106,12 +109,11 @@
                                 @method('PATCH')
 
                                 <!-- Profile section -->
-                                <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                                <div id="profile-section" class="form-section active py-6 px-4 sm:p-6 lg:pb-8">
                                     <div>
                                         <h2 class="text-lg font-medium leading-6 text-gray-900">Profile</h2>
-                                        <p class="mt-1 text-sm text-gray-500">This information will be displayed publicly
-                                            so be careful what
-                                            you share.</p>
+                                        <p class="mt-1 text-sm text-gray-500">This information will be displayed publicly so
+                                            be careful what you share.</p>
                                     </div>
 
                                     <div class="mt-6 flex flex-col lg:flex-row">
@@ -121,26 +123,24 @@
                                                     class="block text-sm font-medium text-gray-700">Username</label>
                                                 <div class="mt-1 flex rounded-md shadow-sm">
                                                     <span
-                                                        class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">javan.co.id/alurkerja/</span>
+                                                        class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 first-letter:bg-gray-50 px-3 text-gray-500 sm:text-sm">javan.co.id/alurkerja/</span>
                                                     <input type="text" name="username" id="username"
                                                         autocomplete="username"
                                                         class="block w-full min-w-0 flex-grow rounded-none rounded-md border border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-                                                        value=" {{ old('username', $user->name) }}" disabled={true}>
+                                                        value="{{ old('username', $user->name) }}" disabled>
                                                 </div>
                                             </div>
-
                                             <div>
                                                 <label for="address_detail"
                                                     class="block text-sm font-medium text-gray-700">Address</label>
                                                 <div class="mt-1">
                                                     <textarea id="address_detail" name="address_detail" rows="3"
                                                         class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-                                                        disabled> {{ old('address_detail', $address_detail->address ?? '') }}</textarea>
+                                                        disabled>  {{ old('address_detail', $address_detail->address ?? '') }}</textarea>
                                                 </div>
                                                 <p class="mt-2 text-sm text-gray-500">Street address for your profile</p>
                                             </div>
                                         </div>
-
                                         <div class="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-shrink-0 lg:flex-grow-0">
                                             <p class="text-sm font-medium text-gray-700" aria-hidden="true">Photo</p>
                                             <div class="mt-1 lg:hidden">
@@ -165,21 +165,26 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="relative hidden overflow-hidden rounded-full lg:block">
-                                                <img class="relative h-40 w-40 rounded-full"
-                                                    src="{{ auth()->user()->profile_picture }}" alt="">
-                                                <label for="desktop-user-photo"
+                                                @if (Str::startsWith(auth()->user()->profile_picture, 'http'))
+                                                    <img class="relative h-40 w-40 rounded-full"
+                                                        src="{{ auth()->user()->profile_picture }}" alt="">
+                                                @else
+                                                    <img class="relative h-40 w-40 rounded-full"
+                                                        src="{{ asset('photo/' . auth()->user()->profile_picture) }}"
+                                                        alt="Profile Picture">
+                                                @endif
+                                                <label for="profile_picture"
                                                     class="absolute inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-75 text-sm font-medium text-white opacity-0 focus-within:opacity-100 hover:opacity-100">
                                                     <span>Change</span>
                                                     <span class="sr-only"> user photo</span>
-                                                    <input type="file" id="desktop-user-photo" name="profile_picture"
-                                                        class="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0">
+                                                    <input type="file" id="profile_picture" name="profile_picture"
+                                                        class="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0"
+                                                        disabled>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="mt-6 grid grid-cols-12 gap-6">
                                         <div class="col-span-12 sm:col-span-6">
                                             <label for="province"
@@ -190,7 +195,6 @@
                                                 value="{{ old('province', $user->addressDetail->province->name ?? '') }}"
                                                 disabled>
                                         </div>
-
                                         <div class="col-span-12 sm:col-span-6">
                                             <label for="city"
                                                 class="block text-sm font-medium text-gray-700">City</label>
@@ -199,7 +203,6 @@
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                                                 value="{{ old('city', $user->addressDetail->city->name ?? '') }}" disabled>
                                         </div>
-
                                         <div class="col-span-12">
                                             <label for="position"
                                                 class="block text-sm font-medium text-gray-700">Position</label>
@@ -207,7 +210,6 @@
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
                                                 value="{{ old('position', $user->position->name ?? '') }}" disabled>
                                         </div>
-
                                         <div class="col-span-12 sm:col-span-6">
                                             <label for="company"
                                                 class="block text-sm font-medium text-gray-700">Company</label>
@@ -222,18 +224,146 @@
                                             <input type="tel" name="whatsapp_number" id="whatsapp_number"
                                                 autocomplete="family-name"
                                                 class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-                                                value="{{ old('whatsapp', $user->whatsapp_number) }}" disabled="{true}">
+                                                value="{{ old('whatsapp', $user->whatsapp_number) }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Account Section --}}
+                                <div id="account-section" class="form-section form-settings py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div>
+                                        <h2 class="text-lg font-medium leading-6 text-gray-900">Account</h2>
+                                        <p class="mt-1 text-sm text-gray-500">Your information is secured, nobody can see
+                                            your information.</p>
+                                    </div>
+                                    <div class="mt-6 flex flex-col lg:flex-row">
+                                        <div class="flex-grow space-y-6">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 grid grid-cols-12 gap-6">
+                                        <div class="col-span-12 sm:col-span-6">
+                                            <label for="province" class="block text-sm font-medium text-gray-700">Email
+                                                Address</label>
+                                            <input type="text" name="email" id="email"
+                                                autocomplete="given-name"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                value="{{ old('email', $user->email ?? '') }}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 grid grid-cols-12 gap-6">
+                                        <div class="col-span-12 sm:col-span-6">
+                                            <label for="password"
+                                                class="block text-sm font-medium text-gray-700">Password</label>
+                                            <input type="password" name="password" id="password"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 grid-cols-12 gap-6 hidden">
+                                        <div class="col-span-12 sm:col-span-6">
+                                            <label for="password-confirm"
+                                                class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                                            <input type="password" name="password-confirmation" id="password-confirm"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Company Section --}}
+                                <div id="company-section" class="form-section form-settings py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div>
+                                        <h2 class="text-lg font-medium leading-6 text-gray-900">Company</h2>
+                                        <p class="mt-1 text-sm text-gray-500">Your company information is secured, nobody
+                                            can see your company information.</p>
+                                    </div>
+                                    <div class="mt-6 flex flex-col lg:flex-row">
+                                        <div class="flex-grow space-y-6">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 grid grid-cols-12 gap-6">
+                                        <div class="col-span-12 sm:col-span-6">
+                                            <label for="company"
+                                                class="block text-sm font-medium text-gray-700">Company</label>
+                                            <input type="text" name="company" id="company"
+                                                autocomplete="organization"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                value="{{ old('company', $user->company->name) }}" disabled>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-6">
+                                            <label for="company_size_name"
+                                                class="block text-sm font-medium text-gray-700">Company Size</label>
+                                            <input type="text" name="company_size_name" id="company-size_name"
+                                                autocomplete="organization"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                value="{{ old('company', $user->company->name) }}" disabled>
+                                        </div>
+                                        <div class="col-span-12">
+                                            <label for="position" class="block text-sm font-medium text-gray-700">Position
+                                                list</label>
+                                            <input type="text" name="position" id="position"
+                                                autocomplete="organization"
+                                                class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                                value="{{ old('company', $user->company->name) }}" disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
-                                    <button type="submit"
+                                    <button type="button" id="editButton"
                                         class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Edit
-                                        Profile<button>
+                                        Profile</button>
+                                    <button type="submit" id="saveButton"
+                                        class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                                        style="display: none;">Save</button>
                                 </div>
                         </div>
                         </form>
                     </div>
+                    <script>
+                        function showSection(event, section) {
+                            event.preventDefault();
+
+                            // Hide all sections
+                            document.querySelectorAll('.form-section').forEach(function(section) {
+                                section.classList.remove('active');
+                            });
+
+                            // Show the selected section
+                            document.getElementById(section + '-section').classList.add('active');
+
+                            // Reset all navigation link classes
+                            document.querySelectorAll('.navigation-links a').forEach(function(link) {
+                                link.className =
+                                    'border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 group border-l-4 px-3 py-2 flex items-center text-sm font-medium';
+                                const svg = link.querySelector('svg');
+                                svg.className = 'text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6';
+                            });
+
+                            // Set the active class for the clicked link
+                            const activeLink = document.querySelector('a[href="#' + section + '-section"]');
+                            activeLink.className =
+                                'bg-teal-50 border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-700 group border-l-4 px-3 py-2 flex items-center text-sm font-medium';
+                            const activeSvg = activeLink.querySelector('svg');
+                            activeSvg.className = 'text-teal-500 group-hover:text-teal-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6';
+                        }
+
+                        // Initialize the default active section
+                        showSection(new Event('load'), 'profile');
+
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const editButton = document.getElementById('editButton');
+                            const saveButton = document.getElementById('saveButton');
+                            const inputs = document.querySelectorAll('input, textarea');
+
+                            editButton.addEventListener('click', function() {
+                                inputs.forEach(input => input.disabled = false);
+                                editButton.style.display = 'none';
+                                saveButton.style.display = 'block';
+                            });
+                        });
+                    </script>
                 </div>
         </div>
         </main>
