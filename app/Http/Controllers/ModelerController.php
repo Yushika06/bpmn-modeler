@@ -6,9 +6,12 @@ use App\Models\Project;
 use App\Models\Modeler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ModelerController extends Controller
 {
+
+    use AuthorizesRequests;
     public function show($projectId)
     {
         // Fetch the project details
@@ -34,6 +37,11 @@ class ModelerController extends Controller
     public function create(Request $request)
     {
         $project_id = $request->input('project_id');
+        $project = Project::findOrFail($project_id);
+
+        // Authorization check
+        $this->authorize('createModeler', $project);
+
         return view('modeler.create', compact('project_id'));
     }
 
@@ -41,22 +49,30 @@ class ModelerController extends Controller
     {
         $request->validate([
             'bpmnXml' => 'required',
+            'project_id' => 'required|exists:projects,id',
         ]);
 
-        $bpmnXml = $request->input('bpmnXml');
         $project_id = $request->input('project_id');
+        $project = Project::findOrFail($project_id);
+
+        // Authorization check
+        $this->authorize('createModeler', $project);
 
         $modeler = new Modeler();
-        $modeler->bpmn = $bpmnXml;
+        $modeler->bpmn = $request->input('bpmnXml');
         $modeler->project_id = $project_id;
         $modeler->save();
 
-        return redirect()->route('projects.show', $modeler->id)->with('success', 'BPMN model created successfully.');
+        return redirect()->route('projects.show', $modeler->project_id)->with('success', 'BPMN model created successfully.');
     }
 
     public function edit($id)
     {
-        $modeler = Modeler::find($id);
+        $modeler = Modeler::findOrFail($id);
+
+        // Authorization check
+        // $this->authorize('updateModeler', $modeler);
+
         return view('modeler.edit', [
             'modeler' => $modeler,
             'bpmnXml' => $modeler->bpmn,
@@ -65,7 +81,15 @@ class ModelerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $modeler = Modeler::find($id);
+        $modeler = Modeler::findOrFail($id);
+
+        // Authorization check
+        // $this->authorize('updateModeler', $modeler);
+
+        $request->validate([
+            'bpmnXml' => 'required',
+        ]);
+
         $modeler->bpmn = $request->input('bpmnXml');
         $modeler->save();
 
