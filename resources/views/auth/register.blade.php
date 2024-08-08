@@ -57,7 +57,7 @@
 
 
                     </div>
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    <form id="registerForm" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-one form-step active">
                             <div class="bg-svg"></div>
@@ -65,13 +65,11 @@
                             <p>Enter your personal information correctly</p>
                             <div>
                                 <label for="name">Your Name</label>
-                                <input id="name" type="text" class="form-control" name="name"
-                                    value="{{ old('name') }}" required>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                             </div>
                             <div>
                                 <label for="company_name">Your Company</label>
-                                <input list="companies" id="company_name" name="company_name"
-                                    value="{{ old('company_name') }}" required>
+                                <input list="companies" id="company_name" name="company_name" value="{{ old('company_name') }}" required>
                                 <datalist id="companies">
                                     @foreach ($companies as $company)
                                         <option value="{{ $company->name }}">
@@ -80,8 +78,7 @@
                             </div>
                             <div>
                                 <label for="company_size_name">Company Size</label>
-                                <input list="company_sizes" id="company_size_name" name="company_size_name"
-                                    value="{{ old('company_size_name') }}" required>
+                                <input list="company_sizes" id="company_size_name" name="company_size_name" value="{{ old('company_size_name') }}" required>
                                 <datalist id="company_sizes">
                                     @foreach ($company_sizes as $company_size)
                                         <option value="{{ $company_size->name }}">
@@ -90,8 +87,7 @@
                             </div>
                             <div>
                                 <label for="position_name">Position</label>
-                                <input list="positions" id="position_name" name="position_name"
-                                    value="{{ old('position_name') }}" required>
+                                <input list="positions" id="position_name" name="position_name" value="{{ old('position_name') }}" required>
                                 <datalist id="positions">
                                     @foreach ($positions as $position)
                                         <option value="{{ $position->name }}">
@@ -104,13 +100,11 @@
                             <h2><i class="fa-solid fa-address-book"></i> Contact</h2>
                             <div>
                                 <label for="whatsapp_number">WhatsApp</label>
-                                <input id="whatsapp_number" type="tel" class="form-control" name="whatsapp_number"
-                                    value="{{ old('whatsapp_number') }}">
+                                <input id="whatsapp_number" type="tel" class="form-control" name="whatsapp_number" value="{{ old('whatsapp_number') }}">
                             </div>
                             <div>
                                 <label for="province_name">Province</label>
-                                <input list="provinces" id="province_name" name="province_name"
-                                    value="{{ old('province_name') }}" required>
+                                <input list="provinces" id="province_name" name="province_name" value="{{ old('province_name') }}" required>
                                 <datalist id="provinces">
                                     @foreach ($provinces as $province)
                                         <option value="{{ $province->name }}" data-id="{{ $province->id }}"></option>
@@ -119,20 +113,16 @@
                             </div>
                             <div>
                                 <label for="city_name">City</label>
-                                <input list="cities" id="city_name" name="city_name" value="{{ old('city_name') }}"
-                                    required>
+                                <input list="cities" id="city_name" name="city_name" value="{{ old('city_name') }}" required>
                                 <datalist id="cities">
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city->name }}"
-                                            data-province="{{ $city->province->name }}"
-                                            data-province-id="{{ $city->province_id }}"></option>
+                                        <option value="{{ $city->name }}" data-province="{{ $city->province->name }}" data-province-id="{{ $city->province_id }}"></option>
                                     @endforeach
                                 </datalist>
                             </div>
                             <div>
                                 <label for="address_detail">Address Detail</label>
-                                <input id="address_detail" type="text" class="form-control" name="address_detail"
-                                    value="{{ old('address_detail') }}" required>
+                                <input id="address_detail" type="text" class="form-control" name="address_detail" value="{{ old('address_detail') }}" required>
                             </div>
                         </div>
                         <div class="form-three form-step">
@@ -140,8 +130,7 @@
                             <h2><i class="fa-solid fa-user-lock"></i> Security</h2>
                             <div>
                                 <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control" name="email"
-                                    value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                             </div>
                             <div>
                                 <label for="password">Password</label>
@@ -149,8 +138,7 @@
                             </div>
                             <div>
                                 <label for="password-confirm">Confirm Password</label>
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
                         <div class="btn-group">
@@ -159,22 +147,29 @@
                             <button type="submit" class="btn-submit btn-primary">Register</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
         <script>
+            // Data initialization
             const citiesByProvince = @json($citiesByProvince);
             const citiesList = document.getElementById('cities');
             const provinceList = document.getElementById('provinces');
+            const hiddenProvinceInput = document.createElement('input');
+            hiddenProvinceInput.type = 'hidden';
+            hiddenProvinceInput.name = 'province_id';
+            document.getElementById('registerForm').appendChild(hiddenProvinceInput);
 
+            // Automatically populate cities based on selected province
             document.getElementById('province_name').addEventListener('input', function() {
                 const provinceName = this.value;
                 const provinceOption = Array.from(provinceList.options).find(option => option.value === provinceName);
                 const provinceId = provinceOption ? provinceOption.getAttribute('data-id') : null;
 
                 if (provinceId) {
-                    const citiesList = document.getElementById('cities');
                     citiesList.innerHTML = '';
+                    hiddenProvinceInput.value = provinceId;
 
                     citiesByProvince[provinceId].forEach(city => {
                         const option = document.createElement('option');
@@ -186,6 +181,7 @@
                 }
             });
 
+            // Automatically set province based on selected city
             document.getElementById('city_name').addEventListener('input', function() {
                 const cityName = this.value;
                 const cityOption = Array.from(citiesList.options).find(option => option.value === cityName);
@@ -195,62 +191,63 @@
                 if (provinceName) {
                     const provinceInput = document.getElementById('province_name');
                     provinceInput.value = provinceName;
-                    provinceInput.disabled = true;
+                    hiddenProvinceInput.value = provinceId;
+                    provinceInput.readOnly = true;
                 } else {
                     const provinceInput = document.getElementById('province_name');
-                    provinceInput.disabled = false;
+                    provinceInput.readOnly = false;
                 }
             });
 
+            // Enable province input if city input is cleared
             document.getElementById('city_name').addEventListener('change', function() {
                 if (!this.value) {
-                    document.getElementById('province_name').disabled = false;
+                    const provinceInput = document.getElementById('province_name');
+                    provinceInput.readOnly = false;
+                    hiddenProvinceInput.value = '';
                 }
             });
 
-            //Multiple step form
+            // Multiple step form navigation
             document.addEventListener('DOMContentLoaded', function() {
                 const nextButton = document.querySelector('.btn-next');
                 const prevButton = document.querySelector('.btn-prev');
                 const submitButton = document.querySelector('.btn-submit');
-                const steps = document.querySelectorAll('.step');
-                const form_steps = document.querySelectorAll('.form-step');
-                let active = 1;
+                const steps = document.querySelectorAll('.form-step');
+                let activeStep = 0;
 
-                nextButton.addEventListener('click', () => {
-                    active++;
-                    if (active > steps.length) {
-                        active = steps.length;
-                    }
-                    updateProgress();
-                });
-
-                prevButton.addEventListener('click', () => {
-                    active--;
-                    if (active < 1) {
-                        active = 1;
-                    }
-                    updateProgress();
-                });
-
-                const updateProgress = () => {
-                    steps.forEach((step, i) => {
-                        if (i === (active - 1)) {
-                            step.classList.add('active');
-                            form_steps[i].classList.add('active');
-                        } else {
-                            step.classList.remove('active');
-                            form_steps[i].classList.remove('active');
-                        }
+                // Function to update form step visibility
+                function updateStepVisibility() {
+                    steps.forEach((step, index) => {
+                        step.classList.toggle('active', index === activeStep);
                     });
-                    prevButton.disabled = active === 1;
-                    nextButton.style.display = active === steps.length ? 'none' : 'inline-block';
-                    submitButton.style.display = active === steps.length ? 'inline-block' : 'none';
-                };
+                    prevButton.disabled = activeStep === 0;
+                    nextButton.style.display = activeStep === steps.length - 1 ? 'none' : 'inline-block';
+                    submitButton.style.display = activeStep === steps.length - 1 ? 'inline-block' : 'none';
+                }
 
-                updateProgress();
+                // Next step button click event
+                nextButton.addEventListener('click', function() {
+                    if (activeStep < steps.length - 1) {
+                        activeStep++;
+                        updateStepVisibility();
+                    }
+                });
+
+                // Previous step button click event
+                prevButton.addEventListener('click', function() {
+                    if (activeStep > 0) {
+                        activeStep--;
+                        updateStepVisibility();
+                    }
+                });
+
+                // Initialize form step visibility
+                updateStepVisibility();
             });
         </script>
+
+
     </div>
 </body>
 

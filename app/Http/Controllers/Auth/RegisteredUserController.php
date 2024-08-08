@@ -80,7 +80,6 @@ class RegisteredUserController extends Controller
             'address_details_id' => $addressDetail->id,
             'whatsapp_number' => $validatedData['whatsapp_number'],
         ]);
-
         $user->save();
         Auth::login($user);
         return redirect('/dashboard');
