@@ -24,10 +24,12 @@ class RegisteredUserController extends Controller
         $company_sizes = CompanySize::all();
         $companies = Company::all();
         $positions = Position::all();
-        $cities = City::all();
+        $cities = City::with('province')->get();
         $provinces = Province::all();
 
-        return view('auth.register', compact('company_sizes', 'positions', 'cities', 'provinces', 'companies'));
+        $citiesByProvince = $cities->groupBy('province_id');
+
+        return view('auth.register', compact('company_sizes', 'positions', 'cities', 'provinces', 'companies', 'citiesByProvince'));
     }
 
     // Handle the registration process
